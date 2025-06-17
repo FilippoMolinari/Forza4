@@ -1,0 +1,13 @@
+# .NET
+Forza4MVC/bin/
+Forza4MVC/obj/
+*.user
+*.suo
+
+# Node/React
+forza4React/node_modules/
+forza4React/build/
+
+# Common
+.env
+.DS_Store

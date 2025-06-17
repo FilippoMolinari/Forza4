@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Forza4Mvc/1.0.0": {
+        "runtime": {
+          "Forza4Mvc.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Forza4Mvc/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
