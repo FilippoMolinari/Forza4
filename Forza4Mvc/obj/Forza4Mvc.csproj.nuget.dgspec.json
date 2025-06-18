@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/molinari/progetti/Forza4Mvc/Forza4Mvc.csproj": {}
+    "/home/molinari/progetti/Forza4/Forza4Mvc/Forza4Mvc.csproj": {}
   },
   "projects": {
-    "/home/molinari/progetti/Forza4Mvc/Forza4Mvc.csproj": {
+    "/home/molinari/progetti/Forza4/Forza4Mvc/Forza4Mvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/molinari/progetti/Forza4Mvc/Forza4Mvc.csproj",
+        "projectUniqueName": "/home/molinari/progetti/Forza4/Forza4Mvc/Forza4Mvc.csproj",
         "projectName": "Forza4Mvc",
-        "projectPath": "/home/molinari/progetti/Forza4Mvc/Forza4Mvc.csproj",
+        "projectPath": "/home/molinari/progetti/Forza4/Forza4Mvc/Forza4Mvc.csproj",
         "packagesPath": "/home/molinari/.nuget/packages/",
-        "outputPath": "/home/molinari/progetti/Forza4Mvc/obj/",
+        "outputPath": "/home/molinari/progetti/Forza4/Forza4Mvc/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/molinari/.nuget/NuGet/NuGet.Config"
@@ -42,6 +42,18 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

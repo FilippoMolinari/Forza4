@@ -41,6 +41,8 @@ namespace Forza4Mvc.Models
             for (int i = 0; i < rows; i++)
                 for (int y = 0; y < columns; y++)
                     board[i][y] = 0;
+            currentPlayer = 1;
+            winner = 0;
         }
 
         public bool IsBoardFull()

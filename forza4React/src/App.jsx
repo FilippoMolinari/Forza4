@@ -5,9 +5,6 @@ import Winner from "./pages/Winner";
 import Loser from "./pages/Loser";
 
 function App() {
-  <h1 className="text-3xl text-red-500 font-bold underline">
-  Tailwind funziona!
-  </h1>
   return (
     <Routes>
       <Route path="/" element={<WelcomePage />} />
