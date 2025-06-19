@@ -1,79 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const BASE_URL = "http://localhost:5271/api/forza4lobby";
-
-function Lobby() {
-  const [hostName, setHostName] = useState("");
-  const [guestName, setGuestName] = useState("");
-  const [lobbyId, setLobbyId] = useState("");
+function LobbyPage() {
+  const { lobbyId } = useParams();
   const [lobby, setLobby] = useState(null);
 
-  const createLobby = async () => {
-    if (!hostName) return;
-    const res = await fetch(`${BASE_URL}/create`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(hostName)
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setLobbyId(data.lobbyId);
-      setLobby({ host: hostName, status: "waiting" });
-    }
-  };
+  useEffect(() => {
+    const fetchLobby = async () => {
+      try {
+        const response = await fetch(`http://localhost:5271/api/forza4lobby/${lobbyId}`);
+        if (!response.ok) throw new Error("Errore nel recupero lobby");
+        const data = await response.json();
+        setLobby(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  const joinLobby = async () => {
-    if (!guestName || !lobbyId) return;
-    const res = await fetch(`${BASE_URL}/join`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ guestName, lobbyId })
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setLobby(data);
-    }
-  };
+    fetchLobby();
+    const interval = setInterval(fetchLobby, 2000); // ogni 2 secondi
+    return () => clearInterval(interval);
+  }, [lobbyId]);
 
-  const refreshLobby = async () => {
-    if (!lobbyId) return;
-    const res = await fetch(`${BASE_URL}/${lobbyId}`);
-    if (res.ok) {
-      const data = await res.json();
-      setLobby(data);
-    }
-  };
+  if (!lobby) return <p>Caricamento lobby...</p>;
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>Create Lobby</h2>
-      <input
-        placeholder="Host name"
-        value={hostName}
-        onChange={(e) => setHostName(e.target.value)}
-      />
-      <button onClick={createLobby}>Create</button>
-      {lobbyId && <p>Lobby ID: {lobbyId}</p>}
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <h1>Lobby ID: {lobby.lobbyId}</h1>
 
-      <h2>Join Lobby</h2>
-      <input
-        placeholder="Lobby ID"
-        value={lobbyId}
-        onChange={(e) => setLobbyId(e.target.value)}
-      />
-      <input
-        placeholder="Guest name"
-        value={guestName}
-        onChange={(e) => setGuestName(e.target.value)}
-      />
-      <button onClick={joinLobby}>Join</button>
+      <div style={{ marginTop: "2rem" }}>
+        <h2>Giocatori</h2>
+        <p><strong>Host:</strong> {lobby.host}</p>
+        <p><strong>Guest:</strong> {lobby.guest ? lobby.guest : "In attesa..."}</p>
+      </div>
 
-      {lobby && (
-        <div style={{ marginTop: "1rem" }}>
-          <h3>Lobby Info</h3>
-          <pre>{JSON.stringify(lobby, null, 2)}</pre>
-          <button onClick={refreshLobby}>Refresh</button>
-        </div>
+      {lobby.status === "ready" && (
+        <p style={{ marginTop: "1rem", fontWeight: "bold", color: "green" }}>
+          Pronti per iniziare! Turno: {lobby.currentTurn}
+        </p>
       )}
     </div>
   );

@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<WelcomePage />} />
-      <Route path="/lobby" element={<Lobby/>}/>
+      <Route path="/lobby/:lobbyId" element={<Lobby/>}/>
       <Route path="/game" element={<Game />} />
       <Route path="/winner" element={<Winner />} />
       <Route path="/loser" element={<Loser />} />

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Forza4Mvc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50b9276503c0138b12b053b29f94b9a4332b64fb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+88dc92480288c21ecb61047573e8c27e1faf7f72")]
 [assembly: System.Reflection.AssemblyProductAttribute("Forza4Mvc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Forza4Mvc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

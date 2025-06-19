@@ -1,75 +1,90 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import './WelcomePage.css';
 
 function WelcomePage() {
-    const [player1Name, setPlayer1Name] = useState("");
-    const [player2Name, setPlayer2Name] = useState("");
-    const navigate = useNavigate();
+  const [playerName, setPlayerName] = useState("");
+  const [lobbyCode, setLobbyCode] = useState("");
+  const [joinMode, setJoinMode] = useState(false);
+  const navigate = useNavigate();
 
-    const handleStartGame = async () => {
-        try {
-            const response = await fetch("http://localhost:5271/api/forza4/start", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    player1Name,
-                    player2Name
-                })
-            });
+  const createLobby = async () => {
+    try {
+      const response = await fetch("http://localhost:5271/api/forza4lobby/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(playerName)
+      });
 
-            if (!response.ok) {
-                throw new Error("Errore nella risposta del server");
-            }
-            const data = await response.json();
-            const playerNumber = data.playerNumber;
-            const playerName = playerNumber === 1 ? player1Name : player2Name;
-            navigate(`/game?player=${playerNumber}&name=${encodeURIComponent(playerName)}`);
+      if (!response.ok) throw new Error("Errore nella creazione della lobby");
+      const data = await response.json();
+      navigate(`/lobby/${data.lobbyId}`);
+    } catch (error) {
+      console.error("Errore creazione lobby:", error);
+    }
+  };
 
-        } catch (error) {
-            console.error("Errore:", error);
-        }
-    };
+  const joinLobby = async () => {
+    try {
+      const response = await fetch("http://localhost:5271/api/forza4lobby/join", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          guestName: playerName,
+          lobbyId: lobbyCode
+        })
+      });
 
-    return (
-        <div className="welcome-container">
-            <div className="form-container">
-                <div className="input-left">
-                    <TextField
-                        label="Giocatore 1"
-                        value={player1Name}
-                        onChange={(e) => setPlayer1Name(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
-                <div className="input-right">
-                    <TextField
-                        label="Giocatore 2"
-                        value={player2Name}
-                        onChange={(e) => setPlayer2Name(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
-                <div className="button-center">
-                    <Button
-                        variant="contained"
-                        style={{ backgroundColor: 'green', color: 'white' }}
-                        onClick={handleStartGame}
-                    >
-                        Inizia Partita
-                    </Button>
-                </div>
+      if (!response.ok) throw new Error("Errore nell'unione alla lobby");
+      const data = await response.json();
+      navigate(`/lobby/${data.lobbyId}`);
+    } catch (error) {
+      console.error("Errore join lobby:", error);
+    }
+  };
+
+  return (
+    <div className="welcome-container">
+        <div className="form-container">
+            <TextField
+            label="Il tuo nome"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            fullWidth
+            variant="outlined"
+            />
+
+            {joinMode && (
+            <TextField
+                label="Codice Lobby"
+                value={lobbyCode}
+                onChange={(e) => setLobbyCode(e.target.value)}
+                fullWidth
+                variant="outlined"
+            />
+            )}
+
+            <div className="button-row">
+            <button onClick={createLobby}>Crea Lobby</button>
+            {!joinMode ? (
+                <button className="secondary" onClick={() => setJoinMode(true)}>
+                Unisciti
+                </button>
+            ) : (
+                <button className="secondary" onClick={joinLobby}>
+                Entra
+                </button>
+            )}
             </div>
         </div>
-    );
+    </div>
+  );
 }
 
 export default WelcomePage;

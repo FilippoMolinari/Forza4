@@ -1,67 +1,69 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  html, body, #root {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    font-family: sans-serif;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .welcome-container {
-    background-image: url('../assets/sfondoWelcomePage.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding: 2rem;
-  }
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: sans-serif;
+}
 
-  .form-container {
-    padding: 2rem;
-    border-radius: 12px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    width: 90%;
-    max-width: 600px;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(6px); 
-  }
-  
-  input, .MuiInputBase-input {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 6px;
-    padding: 10px;
-    color: black;
-    font-weight: bold;
-  }
-  
-  .input-left {
-    grid-column: 1;
-  }
-  
-  .input-right {
-    grid-column: 2;
-  }
-  
-  .button-center {
-    grid-column: 1 / span 2;
-    text-align: center;
-  }
-  
-  .button-center button {
-    background-color: green;
-    color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 8px;
-  }
+.welcome-container {
+  background-image: url('../assets/sfondoWelcomePage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Input */
+input, .MuiInputBase-input {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+/* Bottoni */
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.button-row button {
+  flex: 1;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  padding: 10px 0;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-row button.secondary {
+  background-color: #007bff;
+}
