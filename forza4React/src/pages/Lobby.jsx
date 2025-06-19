@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-function LobbyPage() {
+function Lobby() {
   const { lobbyId } = useParams();
   const [lobby, setLobby] = useState(null);
 
