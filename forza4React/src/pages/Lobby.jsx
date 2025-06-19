@@ -1,5 +1,3 @@
-Nuovo
-+83-0
 import { useState } from "react";
 
 const BASE_URL = "http://localhost:5271/api/forza4lobby";
