@@ -17,7 +17,7 @@ function WelcomePage() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(playerName)
+        body: JSON.stringify({HostName: playerName})
       });
 
       if (!response.ok) throw new Error("Errore nella creazione della lobby");
@@ -36,8 +36,8 @@ function WelcomePage() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          guestName: playerName,
-          lobbyId: lobbyCode
+          GuestName: playerName,
+          LobbyId: lobbyCode
         })
       });
 

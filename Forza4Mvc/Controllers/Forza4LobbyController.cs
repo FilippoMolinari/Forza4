@@ -17,11 +17,11 @@ namespace Forza4Mvc.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateLobby([FromBody] string hostName)
+        public async Task<IActionResult> CreateLobby([FromBody] HostRequest request)
         {
             var lobby = new Forza4Lobby
             {
-                Host = hostName,
+                Host = request.HostName,
             };
             _context.Lobbies.Add(lobby);
             await _context.SaveChangesAsync();
@@ -104,7 +104,7 @@ namespace Forza4Mvc.Controllers
             {
                 return BadRequest(new { error = "Invalid player role." });
             }
-            
+
             return Ok(new { message = "Left lobby successfully." });
         }
     }
@@ -118,5 +118,10 @@ namespace Forza4Mvc.Controllers
     {
         public string LobbyId { get; set; }
         public string PlayerRole { get; set; }
+    }
+    
+    public class HostRequest
+    {
+        public string HostName { get; set; }
     }
 }

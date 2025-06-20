@@ -8,9 +8,10 @@ function Game() {
   const [board, setBoard] = useState(Array(6).fill(null).map(() => Array(7).fill(0)));
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [winner, setWinner] = useState(0);
-  const [searchParams] = useSearchParams();
-  const player = Number(searchParams.get("player"))||0;
-  const playerName = searchParams.get("name");
+  const location = useLocation();
+  const { player, name } = location.state || {};
+  console.log("Giocatore:", player, "Nome:", name);
+  if (!player || !name) return <p>Errore: dati mancanti.</p>;
   const navigate = useNavigate();
 
   useEffect(() => {
