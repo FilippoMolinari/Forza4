@@ -58,7 +58,8 @@ public class Forza4Controller : ControllerBase
         {
             board = game.GetBoard,
             currentPlayer = game.CurrentPlayer,
-            currentPlayerName = game.GetCurrentPlayerName
+            currentPlayerName = game.GetCurrentPlayerName,
+            winner = game.GetWinner
         });
     }
     

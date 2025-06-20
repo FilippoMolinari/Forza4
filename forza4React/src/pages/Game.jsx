@@ -24,6 +24,14 @@ function Game() {
         setBoard(data.board);
         setCurrentPlayer(data.currentPlayer);
         setCurrentPlayerName(data.currentPlayerName);
+        if (data.winner && data.winner !== 0) {
+          setWinner(data.winner);
+          if (data.winner === player) {
+            navigate("/winner");
+          } else {
+            navigate("/loser");
+          }
+        }
       } catch (err) {
         console.error("Errore fetch board:", err);
       }
