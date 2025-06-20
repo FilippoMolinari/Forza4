@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import sfondo from "../assets/sfondoBasic.png";
-import { useSearchParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 function Game() {
@@ -17,7 +16,7 @@ function Game() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5271/api/forza4/board");
+        const res = await fetch("http://localhost:5271/api/Forza4/board");
         if (!res.ok) throw new Error("Errore nella risposta: " + res.status);
         const data = await res.json();
         console.log("Board ricevuta:", data.board);
@@ -33,7 +32,7 @@ function Game() {
 
   const handleMove = async (col) => {
     try {
-      const res = await fetch("http://localhost:5271/api/forza4/move", {
+      const res = await fetch("http://localhost:5271/api/Forza4/move", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ column: col }),
@@ -71,13 +70,13 @@ function Game() {
     }}
   >
     <h2 style={{ color: "white" }}>
-      Tocca a: {currentPlayer} {currentPlayer === playerName && "👈 È il tuo turno"}
+      Tocca a: {currentPlayer} {currentPlayer === player && "È il tuo turno"}
     </h2>
 
     <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 40px)", gap: "10px", marginBottom: "1.5rem" }}>
       {[...Array(7)].map((_, colIndex) => (
         <button
-        disabled={winner !== 0 || currentPlayer !== playerName}
+        disabled={winner !== 0 || currentPlayer !== player}
           key={colIndex}
           onClick={() => handleMove(colIndex)}
           style={{

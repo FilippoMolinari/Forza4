@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import sfondoBasic from "../assets/sfondoBasic.png";
 
 function Lobby() {
   const { lobbyId } = useParams();
   const [lobby, setLobby] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLobby = async () => {
@@ -27,7 +28,7 @@ function Lobby() {
 
   const startGame= async () => {
     try {
-      const response = await fetch("http://localhost:5271/api/forza4/start", {
+      const response = await fetch("http://localhost:5271/api/Forza4/start", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -40,7 +41,7 @@ function Lobby() {
 
       if (!response.ok) throw new Error("Errore nell'unione alla lobby");
       const data = await response.json();
-      navigate(`/Game`,  {
+      navigate(`/game`,  {
       state: {
         player: data.playerNumber,
         name: data.currentPlayer
