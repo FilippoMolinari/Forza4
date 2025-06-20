@@ -63,6 +63,19 @@ public class Forza4Controller : ControllerBase
         });
     }
     
+    [HttpGet("status")]
+    public IActionResult GetStatus()
+    {
+        return Ok(new
+        {
+            connectedPlayers = connectedPlayers,
+            currentPlayer = game.CurrentPlayer,
+            currentPlayerName = game.GetCurrentPlayerName,
+            board = game.GetBoard,
+            winner = game.GetWinner
+        });
+    }
+
     [HttpPost("reset")]
     public IActionResult Reset()
     {

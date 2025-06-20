@@ -5,6 +5,7 @@ import sfondoBasic from "../assets/sfondoBasic.png";
 function Lobby() {
   const { lobbyId } = useParams();
   const [lobby, setLobby] = useState(null);
+  const [gameStarted, setGameStarted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,10 +20,29 @@ function Lobby() {
       }
     };
 
+    const checkStatus = async () => {
+      if (!lobby || gameStarted) return;
+      try {
+        const res = await fetch("http://localhost:5271/api/Forza4/status");
+        if (!res.ok) throw new Error("Errore stato partita");
+        const data = await res.json();
+        if (data.connectedPlayers > 0) {
+          await startGame();
+          setGameStarted(true);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchLobby();
-    const interval = setInterval(fetchLobby, 2000);
+    checkStatus();
+    const interval = setInterval(() => {
+      fetchLobby();
+      checkStatus();
+    }, 2000);
     return () => clearInterval(interval);
-  }, [lobbyId]);
+  }, [lobbyId, lobby, gameStarted]);
 
   if (!lobby) return <p className="text-white text-center mt-10">Caricamento lobby...</p>;
 
@@ -47,6 +67,7 @@ function Lobby() {
         name: data.currentPlayerName
       }
       });
+      setGameStarted(true);
     } catch (error) {
       console.error("Errore join lobby:", error);
     }
