@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 function Game() {
   const [board, setBoard] = useState(Array(6).fill(null).map(() => Array(7).fill(0)));
   const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [currentPlayerName, setCurrentPlayerName] = useState("");
   const [winner, setWinner] = useState(0);
   const location = useLocation();
   const { player, name } = location.state || {};
@@ -21,13 +22,16 @@ function Game() {
         const data = await res.json();
         console.log("Board ricevuta:", data.board);
         setBoard(data.board);
-        setCurrentPlayer(data.currentPlayer); // <- stringa
+        setCurrentPlayer(data.currentPlayer);
+        setCurrentPlayerName(data.currentPlayerName);
       } catch (err) {
         console.error("Errore fetch board:", err);
       }
     };
   
     fetchData();
+    const interval = setInterval(fetchData, 2000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleMove = async (col) => {
@@ -42,6 +46,7 @@ function Game() {
       console.log("Risposta backend:", data);
       setBoard(data.board);
       setCurrentPlayer(data.currentPlayer);
+      setCurrentPlayerName(data.currentPlayerName);
       if (data.winner && data.winner !== 0) {
         setWinner(data.winner);
         if (data.winner === player) {
@@ -70,7 +75,7 @@ function Game() {
     }}
   >
     <h2 style={{ color: "white" }}>
-      Tocca a: {currentPlayer} {currentPlayer === player && "È il tuo turno"}
+      Tocca a: {currentPlayerName} {currentPlayer === player && "È il tuo turno"}
     </h2>
 
     <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 40px)", gap: "10px", marginBottom: "1.5rem" }}>

@@ -44,7 +44,7 @@ function Lobby() {
       navigate(`/game`,  {
       state: {
         player: data.playerNumber,
-        name: data.currentPlayer
+        name: data.currentPlayerName
       }
       });
     } catch (error) {

@@ -30,7 +30,8 @@ public class Forza4Controller : ControllerBase
         {
             message = "Giocatore connesso",
             playerNumber = playerNumber,
-            currentPlayer = game.GetCurrentPlayerName,
+            currentPlayer = game.CurrentPlayer,
+            currentPlayerName = game.GetCurrentPlayerName,
             board = game.GetBoard
         });
     }
@@ -43,7 +44,8 @@ public class Forza4Controller : ControllerBase
         return Ok(new
         {
             status = result.ToString(),
-            currentPlayer = game.GetCurrentPlayerName,
+            currentPlayer = game.CurrentPlayer,
+            currentPlayerName = game.GetCurrentPlayerName,
             board = game.GetBoard,
             winner = game.GetWinner
         });
@@ -55,7 +57,8 @@ public class Forza4Controller : ControllerBase
         return Ok(new
         {
             board = game.GetBoard,
-            currentPlayer = game.GetCurrentPlayerName
+            currentPlayer = game.CurrentPlayer,
+            currentPlayerName = game.GetCurrentPlayerName
         });
     }
     

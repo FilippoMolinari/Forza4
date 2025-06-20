@@ -28,6 +28,7 @@ namespace Forza4Mvc.Models
 
         public int[][] GetBoard => board;
         public int GetWinner => winner;
+        public int CurrentPlayer => currentPlayer;
         public string GetCurrentPlayerName => currentPlayer == 1 ? Player1Name : Player2Name;
 
         public void SetPlayerNames(string name1, string name2)
